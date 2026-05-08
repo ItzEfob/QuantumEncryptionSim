@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body { font-family: system-ui; background: #1e1e1e; color: #fff; padding: 20px; }
+        .container { max-width: 500px; margin: auto; background: #2d2d2d; padding: 20px; border-radius: 10px; }
+        .slider-group { margin-bottom: 15px; }
+        input[type="range"] { width: 100%; }
+        .result-box { background: #000; padding: 15px; border-radius: 8px; margin-top: 20px; text-align: center;}
+        .highlight { color: #00ffcc; font-size: 1.5em; font-weight: bold; }
+        .error-highlight { color: #ff4444; font-size: 1.5em; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>LWE Sandbox (Modulo 101)</h2>
+        
+        <div class="slider-group">
+            <label>Secret 's': <span id="s-val">10</span></label>
+            <input type="range" id="s" min="1" max="20" value="10" oninput="calculate()">
+        </div>
+        <div class="slider-group">
+            <label>Multiplier 'A': <span id="A-val">25</span></label>
+            <input type="range" id="A" min="1" max="50" value="25" oninput="calculate()">
+        </div>
+        <div class="slider-group">
+            <label>Error 'e': <span id="e-val">2</span></label>
+            <input type="range" id="e" min="-5" max="5" value="2" oninput="calculate()">
+        </div>
+
+        <div class="result-box">
+            <p>Pure Result (A * s): <br><span class="highlight" id="pure-res">48</span></p>
+            <p>Masked Key 'b' (A * s + e): <br><span class="error-highlight" id="masked-res">50</span></p>
+        </div>
+    </div>
+
+    <script>
+        function calculate() {
+            let s = parseInt(document.getElementById('s').value);
+            let A = parseInt(document.getElementById('A').value);
+            let e = parseInt(document.getElementById('e').value);
+            let q = 101;
+
+            document.getElementById('s-val').innerText = s;
+            document.getElementById('A-val').innerText = A;
+            document.getElementById('e-val').innerText = e;
+
+            // Handle negative modulo correctly in JS
+            let pure = (A * s) % q;
+            let masked = (((A * s + e) % q) + q) % q;
+
+            document.getElementById('pure-res').innerText = pure;
+            document.getElementById('masked-res').innerText = masked;
+        }
+        calculate(); // Run once on load
+    </script>
+</body>
+</html>
