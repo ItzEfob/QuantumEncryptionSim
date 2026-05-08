@@ -102,5 +102,9 @@ Adjust the sliders in the repo HTML file to see how injecting error (noise) mask
 **1. Pure Result (No Noise):** If an attacker intercepts this, they can easily reverse the math to find your secret.
 `A * s (mod 101)` = **`VIEW[round(({A} * {s}) % 101)]`**
 
+# REFERENCES
+### https://www.mdpi.com/2079-9292/15/6/1275
+### https://proton.me/blog/post-quantum-encryption
+
 **2. Masked Public Key (`b`):** This is what is actually broadcasted. The tiny error fundamentally breaks the algebra for the attacker.
 `A * s + e (mod 101)` = **`VIEW[round(({A} * {s} + {e}) % 101)]`**
